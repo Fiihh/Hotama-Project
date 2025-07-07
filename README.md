@@ -1,1 +1,1 @@
-# ayo coding by akun alt
+# Project Landing Page :D
