@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth md:scroll-auto">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotama - Building smarter solutions for a better future</title>
@@ -21,12 +22,12 @@
                         'xs': '2px',
                     },
                     animation: {
-                        'scroll': 'scroll 40s linear infinite',
+                        'scroll': 'scroll 50s linear infinite',
                     },
                     keyframes: {
                         'scroll': {
-                            '0%': { transform: 'translateX(0)' },
-                            '100%': { transform: 'translateX(-100%)' },
+                            from: { transform: 'translateX(0)' },
+                            to: { transform: 'translateX(-100%)' },
                         }
                     }
                 }
@@ -35,11 +36,19 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .glassmorphism {
-            backdrop-filter: blur(10px);
-            background: rgba(15, 20, 25, 0.8);
+      .glassmorphism {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.05));
             border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px; /* rounded-full */
+            margin: 1rem auto;
+            max-width: fit-content;
+            padding: 0.25rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            
         }
+
         .hero-gradient {
             background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
         }
@@ -61,30 +70,27 @@
             animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
         }
         
-        /* Improved Logo Scroll Animation */
+        /* Logo Scroll Animation */
         .logo-scroll-container {
             overflow: hidden;
             position: relative;
-            width: 100%;
+            width: 75%;
             mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
             -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
         }
         
         .logo-scroll-track {
             display: flex;
-            animation: scroll 40s linear infinite;
+            animation: scroll 100s linear infinite;
             width: calc(200%);
         }
-        
-        .logo-scroll-track:hover {
-            animation-play-state: paused;
-        }
+
         
         .logo-group {
             display: flex;
             align-items: center;
             justify-content: space-around;
-            width: 50%;
+            width: 25%;
             flex-shrink: 0;
         }
         
@@ -107,7 +113,6 @@
         .logo-item img {
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain;
         }
         
         @keyframes scroll {
@@ -127,68 +132,125 @@
             from, to { border-color: transparent }
             50% { border-color: #1dd1a1 }
         }
+
+          .marquee {
+      display: flex;
+      block-size: var(--marquee-item-height);
+      margin-block: var(--marquee-item-height);
+      position: relative;
+      overflow-x: hidden;
+      mask-image: linear-gradient(
+        to right,
+        hsl(0 0% 0% / 0),
+        hsl(0 0% 0% / 1) 50%,
+        hsl(0 0% 0% / 1) 25%,
+        hsl(0 0% 0% / 0)
+      );
+    }
+
+    .marquee--8 {
+      --marquee-item-width: 150px;
+      --marquee-item-height: 100px;
+      --marquee-duration: 36s;
+      --marquee-items: 8;
+    }
+
+    .marquee__item {
+      --marquee-item-offset: max(
+        calc(var(--marquee-item-width) * var(--marquee-items)),
+        calc(100% + var(--marquee-item-width))
+      );
+      --marquee-delay: calc(var(--marquee-duration) / var(--marquee-items) * (var(--marquee-items) - var(--marquee-item-index)) * -1);
+      position: absolute;
+      inset-inline-start: var(--marquee-item-offset);
+      transform: translateX(-50%);
+      animation: go linear var(--marquee-duration) var(--marquee-delay, 0s) infinite;
+    }
+
+    .marquee__item:nth-child(4n) {
+      border-top-right-radius: 1rem;
+    }
+
+    .marquee__item:nth-child(4n + 1) {
+      border-bottom-right-radius: 1rem;
+    }
+
+    .marquee__item:nth-child(4n + 2) {
+      border-bottom-left-radius: 1rem;
+    }
+
+    .marquee__item:nth-child(4n + 3) {
+      border-top-left-radius: 1rem;
+    }
+
+    /* Indexing each item */
+    .marquee--8 .marquee__item:nth-of-type(1) { --marquee-item-index: 1; }
+    .marquee--8 .marquee__item:nth-of-type(2) { --marquee-item-index: 2; }
+    .marquee--8 .marquee__item:nth-of-type(3) { --marquee-item-index: 3; }
+    .marquee--8 .marquee__item:nth-of-type(4) { --marquee-item-index: 4; }
+    .marquee--8 .marquee__item:nth-of-type(5) { --marquee-item-index: 5; }
+    .marquee--8 .marquee__item:nth-of-type(6) { --marquee-item-index: 6; }
+    .marquee--8 .marquee__item:nth-of-type(7) { --marquee-item-index: 7; }
+    .marquee--8 .marquee__item:nth-of-type(8) { --marquee-item-index: 8; }
+
+    @keyframes go {
+      to {
+        inset-inline-start: calc(var(--marquee-item-width) * -1);
+      }
+    }
     </style>
 </head>
 <body class="bg-gradient-to-b from-slate-900 to-black text-white font-inter scroll-smooth">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glassmorphism">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center">
-                        <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-3">
-                            <img src="./img/logohotama.png" alt="hotama" class="w-16 "/>
-                        </div>
-                        <span class="text-xl font-bold text-white">HOTAMA</span>
-                    </div>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="text-white hover:text-teal-custom px-3 py-2 text-sm font-medium transition-colors">Home</a>
-                        <a href="#services" class="text-gray-300 hover:text-teal-custom px-3 py-2 text-sm font-medium transition-colors">Services</a>
-                        <a href="#work" class="text-gray-300 hover:text-teal-custom px-3 py-2 text-sm font-medium transition-colors">Our Work</a>
-                        <a href="#about" class="text-gray-300 hover:text-teal-custom px-3 py-2 text-sm font-medium transition-colors">About</a>
-                        <a href="#contact" class="text-gray-300 hover:text-teal-custom px-3 py-2 text-sm font-medium transition-colors">Contact</a>
-                    </div>
-                </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none focus:text-white">
-                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <!-- Navigation (Jacky,Fikri Aziz) -->
+   <!-- Navigation -->
+ <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-4xl px-4 sm:px-6 lg:px-7 h-13 bg-white/5 backdrop-blur-lg rounded-[32px] px-6 py-2 border border-white/10 shadow-md">
+  <div class="flex items-center justify-between ">
+    
+    <!-- Logo -->
+    <div class="flex items-center space-x-2">
+      <img src="https://framerusercontent.com/images/cvn0qqe0jS1wja3wxuEqhNmDDJ8.png?scale-down-to=512"
+           alt="hotama"
+           class="w-[120px] h-auto" />
+    </div>
 
-    <!-- Hero Section -->
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-white">
+      <a href="#services" class="hover:text-teal-400 transition">Our Services</a>
+      <a href="#about" class="hover:text-teal-400 transition">About Us</a>
+      <a href="#work" class="hover:text-teal-400 transition">Project</a>
+      <a href="#testi" class="hover:text-teal-400 transition">Testimoni</a>
+      <a href="#contact" class="ml-4 bg-white text-black px-5 py-1.5 rounded-full hover:bg-gray-100 transition shadow">Let's Talk</a>
+    </div>
+
+    <!-- Mobile Hamburger -->
+    <div class="md:hidden flex items-center space-x-2">
+      <button id="mobile-menu-btn" class="text-white hover:text-teal-400 focus:outline-none">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Dropdown -->
+  <div id="mobile-menu" class="md:hidden fixed top-10 left-1/2 transform -translate-x-1/2 z-40 w-[92%] max-w-sm bg-[#0F172A]/70 backdrop-blur-lg border border-white/10 rounded-[40px] px-8 py-10 text-white hidden shadow-2xl">
+    <nav class="flex flex-col gap-6 text-lg font-semibold">
+      <a href="#services" class="hover:text-teal-400 transition">Our Services</a>
+      <a href="#about" class="hover:text-teal-400 transition">About Us</a>
+      <a href="#work" class="hover:text-teal-400 transition">Project</a>
+      <a href="#testi" class="hover:text-teal-400 transition">Testimoni</a>
+    </nav>
+   
+  </div>
+</nav>
+
+
+    <!-- Hero Section (Fikri Aziz)-->
     <section id="home" class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-teal-custom/5 to-transparent"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <div class="mb-8">
-                <div class="w-20 h-20 bg-teal-custom/20 rounded-full flex items-center justify-center mx-auto mb-8 backdrop-blur-sm border border-teal-custom/30">
-                    <svg class="w-10 h-10 text-teal-custom" fill="currentColor" viewBox="0 0 20 20">
-                        
-                    </svg>
-                </div>
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                    Building smarter solutions for a better future with 
-                    <span class="text-teal-custom">Hotama</span>
-                </h1>
-                <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                    @BeingMani97
-                </p>
-                <button class="bg-white text-dark-bg px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">
-                    Let's Talk
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Content Section -->
-    <section class="py-20 bg-dark-bg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-4xl md:text-5xl font-bold mb-8">Transform Your Digital Presence</h2>
             <p class="text-xl text-gray-300 mb-12 max-w-4xl mx-auto">
                 We help ambitious brands grow and scale through world-class design,
@@ -196,107 +258,50 @@
                 make real impact.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button class="bg-white text-dark-bg px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+                <button class="bg-white text-dark-bg px-8 py-3 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition-colors">
                     Let's Talk
                 </button>
                 <button class="border border-gray-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
                     View Our Work
                 </button>
             </div>
+        </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="py-1 bg-dark-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             
-            <!-- Trusted By Section with Fixed Infinite Logo Scroll -->
+            <!-- Trusted By Section  -->
             <div class="mt-16">
-                <span class="text-teal-custom text-sm font-semibold mb-8 block">Trusted By</span>
-                <div class="logo-scroll-container py-8">
-                    <div class="logo-scroll-track">
-                        <!-- First set of logos -->
-                        <div class="logo-group">
-                            <div class="logo-item">
-                                <svg class="w-16 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                                    <img src="./img/lippogroup.png" alt="lippo" class="w-16 h-11"/>
-                                </svg>
-                            </div>
-                            <div class="logo-item">
-                                <svg class="w-16 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                                   <img src="./img/flip.jpg" alt="flip" class="w-16 h-11"/>
-                                </svg>
-                            </div>
-                            <div class="logo-item">
-                                <svg class="w-16 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                                   <img src="./img/smart.png" alt="smart" class="w-16 h-11"/>
-                                </svg>
-                            </div>
-                            <div class="logo-item">
-                                <svg class="w-16 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                                    <img src="./img/pegasusgroup.png" alt="pegasus" class="w-16 h-11"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <!-- Duplicate set for seamless loop -->
-                           <div class="logo-group">
-                            <div class="logo-item">
-                                <svg class="w-16 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                                    <img src="./img/lippogroup.png" alt="lippo" class="w-16 h-11"/>
-                                </svg>
-                            </div>
-                            <div class="logo-item">
-                                <svg class="w-16 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                                   <img src="./img/flip.jpg" alt="flip" class="w-16 h-11"/>
-                                </svg>
-                            </div>
-                            <div class="logo-item">
-                                <svg class="w-16 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                                   <img src="./img/smart.png" alt="smart" class="w-16 h-11"/>
-                                </svg>
-                            </div>
-                            <div class="logo-item">
-                                <svg class="w-16 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                                    <img src="./img/pegasusgroup.png" alt="pegasus" class="w-16 h-11"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
+                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-teal-400 text-teal-400 bg-teal-400/10">
+             <span class="w-3 h-3 bg-teal-400 rounded-full"></span>
+                <span class="font-medium">Trusted By</span>
                 </div>
-            </div>
+                <div class="marquee marquee--8 relative mt-12 mb-8">
+    <img class="marquee__item h-[45px] w-[130px]" src="https://framerusercontent.com/images/zgSvzp8Ol6V6oc4CqJoLWu2I.png?scale-down-to=512" alt="lippo">
+    <img class="marquee__item h-[45px] w-[130px]" src="https://framerusercontent.com/images/d4v2Q1oJnD0sFwwjiZ0b8FgwBoo.png?scale-down-to=512"  alt="smart">
+    <img class="marquee__item h-[52px] w-[80px]" src="https://framerusercontent.com/images/n3i1xqTAiDLNSV51lOfhd07bmE.png?scale-down-to=512"  alt="flip">
+    <img class="marquee__item h-[45px] w-[130px]" src="https://framerusercontent.com/images/XZf7BlFBY69MWTeKsKWGKP8LUc.png?scale-down-to=512"  alt="pegasus">
+    <img class="marquee__item h-[45px] w-[130px]" src="https://framerusercontent.com/images/zgSvzp8Ol6V6oc4CqJoLWu2I.png?scale-down-to=512" alt="lippo">
+    <img class="marquee__item h-[45px] w-[130px]" src="https://framerusercontent.com/images/d4v2Q1oJnD0sFwwjiZ0b8FgwBoo.png?scale-down-to=512"  alt="smart">
+    <img class="marquee__item h-[52px] w-[80px]" src="https://framerusercontent.com/images/n3i1xqTAiDLNSV51lOfhd07bmE.png?scale-down-to=512"  alt="flip">
+    <img class="marquee__item h-[45px] w-[130px]" src="https://framerusercontent.com/images/XZf7BlFBY69MWTeKsKWGKP8LUc.png?scale-down-to=512"  alt="pegasus">
+  </div>    
+      </div>
         </div>
     </section>
 
-    <!-- Our Work Section -->
-    <section id="work" class="py-20 bg-dark-bg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-            <div class="text-center mb-16">
-                <span class="text-teal-custom text-sm font-semibold">Our Work</span>
-                <h2 class="text-4xl md:text-5xl font-bold mt-4 mb-8">Our Previous Project</h2>
-            </div>
-            <div class="flex justify-center ">
-                <div class="card-gradient rounded-3xl p-8 max-w-md ">
-                    <img src="./img/qara'a.jpg" alt="pegasus" class=""/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2 text-center">Qara'a</h3>
-                    <p class="text-gray-400 text-center mb-20">Education App</p>
-                </div>
-                 <div class="flex justify-center ">
-                <div class="card-gradient rounded-3xl p-8 max-w-md ">
-                    <img src="./img/pegasus.jpg" alt="pegasus" class=""/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2 text-center">Pegassus Universe</h3>
-                    <p class="text-gray-400 text-center">HR Management App</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-   <!-- Services Section -->
+
+   <!-- Services Section (Lutfi)-->
     <section id="services" class="py-20 bg-dark-bg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <span class="text-teal-custom text-sm font-semibold">Our Service</span>
+                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-teal-400 text-teal-400 bg-teal-400/10">
+             <span class="w-3 h-3 bg-teal-400 rounded-full"></span>
+                <span class="font-medium">Our Service</span>
+                </div>
                 <h2 class="text-4xl md:text-5xl font-bold mt-4 mb-8">Solution for your business needs</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -382,22 +387,23 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About Section (Lutfi) -->
     <section id="about" class="py-20 bg-dark-bg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="order-2 lg:order-1">
-                    <span class="text-teal-custom text-sm font-semibold">About Us</span>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"><div class="order-1 lg:order-1">
+                    <div class="max-w-fit rounded-2xl p-8 backdrop-blur-sm"> 
+                    <img class="rounded-2xl" src="https://framerusercontent.com/images/kS0nBwB7pKnWC3vlQzLBRwPVKYA.jpg?scale-down-to=512" alt="pegasus" class="max-w-fit"/>
+               
+                </div>
+                  </div><div class="order-2 lg:order-2">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-teal-400 text-teal-400 bg-teal-400/10">
+             <span class="w-3 h-3 bg-teal-400 rounded-full"></span>
+                <span class="font-medium">About Us</span>
+                </div>
                     <h2 class="text-4xl md:text-5xl font-bold mt-4 mb-8">Learn more about our journey</h2>
                     <p class="text-gray-300 text-lg leading-relaxed">
                         PT Kreasi Putra Hotama is a reputable software development and IT consulting company with over 10 years of experience. We pride ourselves on being a trusted partner for businesses seeking innovative technology solutions. With a team of skilled professionals, we have successfully delivered numerous software projects and provided exceptional IT consulting services to clients across various industries.
                     </p>
-                </div>
-                <div class="order-1 lg:order-2">
-                    <div class="max-w-fit bg-gradient-to-br from-teal-custom/20 to-purple-600/20 rounded-2xl p-8 backdrop-blur-sm">
-                        
-                    <img src="./img/hero.jpg" alt="pegasus" class="max-w-fit"/>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -405,56 +411,155 @@
             </div>
         </div>
     </section>
+   
+    <!-- Testimoni:denis -->
+       <section class="bg-dark-bg text-white py-20 px-4 overflow-hidden">
+  <div class="max-w-4xl mx-auto text-center mb-12">
+    <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full border border-teal-500 text-teal-400 bg-teal-500/10 w-max mx-auto mb-4">
+      <span class="w-2.5 h-2.5 bg-teal-400 rounded-full"></span>
+      <span class="text-sm font-medium">Testimoni</span>
+    </div>
+    <h2 class="text-3xl md:text-5xl font-bold leading-tight text-white drop-shadow">What client say about our service</h2>
+  </div>
 
-    <!-- Testimonials Section -->
-    <section class="py-20 bg-dark-bg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="text-teal-custom text-sm font-semibold">Testimoni</span>
-                <h2 class="text-4xl md:text-5xl font-bold mt-4 mb-8">What client say about our service</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="card-gradient rounded-2xl p-8">
-                    <p class="text-gray-300 mb-6">
-                        "Pretty handy sites powered by Craft CMS in the past, but seeing @framer makes stuff so effortlessly is mind-blowing."
-                    </p>
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gray-600 rounded-full mr-4"></div>
-                        <div>
-                            <h4 class="font-semibold">Daniel</h4>
-                            <p class="text-gray-400 text-sm">@dxwinden</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-gradient rounded-2xl p-8">
-                    <p class="text-gray-300 mb-6">
-                        "The scroll variant in @framer hits differently. Never imagined that making some complex things would be easy with that. Everyday I learn something new with Framer."
-                    </p>
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gray-600 rounded-full mr-4 overflow-hidden">
-                            <div class="w-full h-full bg-gradient-to-br from-teal-custom to-purple-600"></div>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold">Mani</h4>
-                            <p class="text-gray-400 text-sm">@BeingMani97</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="relative">
+    <div class="flex gap-6 w-max animate-slide px-4">
+      <!-- Fraky -->
+      <div class="bg-neutral-800 rounded-2xl p-6 w-80 flex-shrink-0">
+        <p class="mb-6 text-gray-300">Websites built on @framer are fast and responsive. I enjoyed working with their tools for my portfolio site!</p>
+        <div class="flex items-center gap-4">
+          <img src="https://i.pravatar.cc/48?img=2" alt="Fraky" class="w-12 h-12 rounded-full object-cover">
+          <div>
+            <h4 class="font-semibold">Fraky</h4>
+            <p class="text-sm text-gray-400">@frekyplay</p>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- Footer -->
+      <!-- Beingmani -->
+      <div class="bg-neutral-800 rounded-2xl p-6 w-80 flex-shrink-0">
+        <p class="mb-6 text-gray-300">Websites built on @framer are fast and responsive. I enjoyed working with their tools for my portfolio site!</p>
+        <div class="flex items-center gap-4">
+          <img src="https://i.pravatar.cc/48?img=12" alt="Beingmani" class="w-12 h-12 rounded-full object-cover">
+          <div>
+            <h4 class="font-semibold">Beingmani</h4>
+            <p class="text-sm text-gray-400">@beingmani</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dann -->
+      <div class="bg-neutral-800 rounded-2xl p-6 w-80 flex-shrink-0">
+        <p class="mb-6 text-gray-300">I learned how to build a website in @Framer! Just random elements that’s responsive. If I can do it, so can you!</p>
+        <div class="flex items-center gap-4">
+          <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Dann" class="w-12 h-12 rounded-full object-cover">
+          <div>
+            <h4 class="font-semibold">Dann</h4>
+            <p class="text-sm text-gray-400">@DannPetty</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manoj -->
+      <div class="bg-neutral-800 rounded-2xl p-6 w-80 flex-shrink-0">
+        <p class="mb-6 text-gray-300">Websites built on @framer help us build polished, flexible web pages with ease. Loved the process!</p>
+        <div class="flex items-center gap-4">
+          <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="Manoj" class="w-12 h-12 rounded-full object-cover">
+          <div>
+            <h4 class="font-semibold">Manoj</h4>
+            <p class="text-sm text-gray-400">@manojnayak</p>
+          </div>
+        </div>
+      </div> 
+     
+      <!-- fraky -->
+      <div class="bg-neutral-800 rounded-2xl p-6 w-80 flex-shrink-0">
+        <p class="mb-6 text-gray-300">Websites built on @framer are fast and responsive. I enjoyed working with their tools for my portfolio site!</p>
+        <div class="flex items-center gap-4">
+          <img src="https://i.pravatar.cc/48?img=2" alt="Fraky" class="w-12 h-12 rounded-full object-cover">
+          <div>
+            <h4 class="font-semibold">Fraky</h4>
+            <p class="text-sm text-gray-400">@frekyplay</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+@keyframes slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-slide {
+  animation: slide 20s linear infinite;
+}
+</style>
+
+  <!-- Our Work Section (Naufal,Jacky) -->
+     <section id="work" class="py-20 bg-dark-bg">
+  <div class="max-w-xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-teal-400 text-teal-400 bg-teal-400/10">
+        <span class="w-3 h-3 bg-teal-400 rounded-full"></span>
+        <span class="font-medium">Our Work</span>
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold mt-4">Our Previous Project</h2>
+    </div>
+
+    <div class="flex flex-col gap-10 items-center">
+      
+      <!-- Project 1 - Qara'a -->
+      <a href="#" class="group w-full max-w-md">
+        <div class="card-gradient rounded-2xl overflow-hidden shadow-lg">
+          <div class="relative overflow-hidden">
+            <img 
+              src="https://framerusercontent.com/images/LCVsDCZG7TxEIg3DCqODtWRG0.png" 
+              alt="Qara'a"
+              class="w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-hotama-teal/0 group-hover:bg-hotama-teal/10 transition-colors duration-300"></div>
+          </div>
+          <div class="px-6 py-5 text-left">
+            <h3 class="text-xl font-bold text-white mb-1">Qara'a</h3>
+            <p class="text-gray-400 text-sm">Education App</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 2 - Pegasus -->
+      <a href="#" class="group w-full max-w-md">
+        <div class="card-gradient rounded-2xl overflow-hidden shadow-lg">
+          <div class="relative overflow-hidden">
+            <img 
+              src="https://framerusercontent.com/images/5wgXVrTb40sZ33YJlRdso0WBKMU.png" 
+              alt="Pegasus Universe"
+              class="w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-hotama-teal/0 group-hover:bg-hotama-teal/10 transition-colors duration-300"></div>
+          </div>
+          <div class="px-6 py-5 text-left">
+            <h3 class="text-xl font-bold text-white mb-1">Pegasus Universe</h3>
+            <p class="text-gray-400 text-sm">HR Management App</p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+    <!-- Footer (Denis) -->
     <footer class="bg-dark-card py-12 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center mb-4 md:mb-0">
-                    <div class="w-8 h-8  rounded-lg flex items-center justify-center mr-3">
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                           <img src="img/logohotama.png"
+                    <div class="w-40 h-30  rounded-lg flex items-center justify-center mr-3">
+                        <svg class=" text-white" fill="currentColor" viewBox="0 0 20 20">
+                             <img src="https://framerusercontent.com/images/cvn0qqe0jS1wja3wxuEqhNmDDJ8.png?scale-down-to=512" class="size-00"
                         </svg>
                     </div>
-                    <span class="text-xl font-bold text-white">HOTAMA</span>
                 </div>
                 <div class="flex space-x-6 text-sm text-gray-400">
                     <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
